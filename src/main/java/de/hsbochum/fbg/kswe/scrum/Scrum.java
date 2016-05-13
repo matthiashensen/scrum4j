@@ -4,7 +4,6 @@ package de.hsbochum.fbg.kswe.scrum;
 import de.hsbochum.fbg.kswe.scrum.events.UnexpectedNextEventException;
 import de.hsbochum.fbg.kswe.scrum.events.InvalidSprintPeriodException;
 import de.hsbochum.fbg.kswe.scrum.artifacts.ProductBacklog;
-import de.hsbochum.fbg.kswe.scrum.events.DailyScrum;
 import de.hsbochum.fbg.kswe.scrum.events.Event;
 import de.hsbochum.fbg.kswe.scrum.events.InitializationException;
 import de.hsbochum.fbg.kswe.scrum.events.Sprint;
@@ -38,11 +37,11 @@ public class Scrum {
             this.currentEvent = event;
         }
         else {
-            /*
-             * TODO implement the assertion of the logical order. Throw an
-             * UnexpectedNextEventException if the order is not correct.
-             * Hint: the method Class#isAssignableFrom() might be helpful
-             */
+        	previousEvent=currentEvent;
+        	if (previousEvent.followingEventType()==event.getClass()){
+        		currentEvent=event;
+        	}
+        	
         }
         
         event.init(previousEvent, productBacklog);
